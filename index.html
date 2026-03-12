@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alamo City Swing Revival</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loader" class="loader">
+    <div class="loader-turntable">
+      <div class="loader-platter">
+        <div class="loader-record-drop">
+          <div class="loader-record">
+            <div class="loader-record-label">
+              <span class="loader-record-title">ACSR</span>
+              <span class="loader-record-sub">Est. 2016</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="loader-arm"></div>
+    </div>
+    <p class="loader-text">Setting the tempo...</p>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="navbar">
+    <a href="#hero" class="nav-logo">Alamo City<span> Swing Revival</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#aboutus">Who we are</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#steps">Learn</a></li>
+      <li><a href="#scene">The Scene</a></li>
+      <li><a href="#board">The Board</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#events" class="nav-cta">Join the Floor</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="hero-title-line">Alamo City</span>
+        <span class="hero-title-line hero-title-accent">Swing Revival</span>
+      </h1>
+      <p class="hero-subtitle" id="typewriter"></p>
+      <a href="#events" class="hero-cta" id="hero-cta">Start Dancing</a>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="aboutus" class="section vibe">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">About Us</span>
+        <h2 class="section-title">Who We <em>Are</em></h2>
+      </div>
+      <div class="vibe-grid">
+        <div class="vibe-image-wrapper reveal-left">
+          <div class="vibe-image" data-colorize>
+            <img src="hero.jpg" alt="Swing dancers in motion">
+          </div>
+        </div>
+        <div class="vibe-text reveal-right">
+          <p class="vibe-lead">Alamo City Swing Revival (ACSR) is a Non-profit 501(c)(7). Our funds always go back to dancers to provide bands, lessons, entertainment, snacks/drinks, and much more!</p>
+          <p>At <strong>ACSR</strong>, we believe dance is for everyone. Whether you're a total beginner who's never heard of a swing-out, or a seasoned lindy hopper who lives for the jam circle.</p>
+          <p>We host weekly social dances, lessons with San Antonio's best lindy hop instructors, and live band nights that'll make you forget what century you're in. Come for the dance, stay for the people.</p>
+          <div class="vibe-stats">
+            <div class="stat">
+              <span class="stat-number" data-count="220">0</span>
+              <span class="stat-label">Dance Members</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-count="40">0</span>
+              <span class="stat-label">Events Per Year</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-count="10">0</span>
+              <span class="stat-label">Years Running</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Join the Floor — Events -->
+  <section id="events" class="section events">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Upcoming</span>
+        <h2 class="section-title">Join the <em>Floor</em></h2>
+      </div>
+      <div class="events-grid" id="events-grid">
+        <p class="events-loading">Loading events...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learn the Steps -->
+  <section id="steps" class="section steps">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Classes</span>
+        <h2 class="section-title">Learn the <em>Steps</em></h2>
+      </div>
+      <div class="steps-grid" id="steps-grid">
+        <p class="events-loading">Loading classes...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Scene — Gallery -->
+  <section id="scene" class="section scene">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Gallery</span>
+        <h2 class="section-title">The <em>Scene</em></h2>
+      </div>
+      <div class="gallery-masonry" id="gallery-masonry"></div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-prev" aria-label="Previous">&lsaquo;</button>
+      <button class="lightbox-next" aria-label="Next">&rsaquo;</button>
+      <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    </div>
+  </section>
+
+ 
+
+  <!-- Board Members -->
+  <section id="board" class="section board">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Leadership</span>
+        <h2 class="section-title">Board <em>Members</em></h2>
+      </div>
+      <div class="board-grid">
+        <div class="board-card reveal-up" data-delay="0">
+          <div class="board-avatar">ST</div>
+          <h3 class="board-name">Sheri Tate</h3>
+          <span class="board-role">Founder</span>
+        </div>
+        <div class="board-card reveal-up" data-delay="60">
+          <div class="board-avatar">JV</div>
+          <h3 class="board-name">Jonathan Vargas</h3>
+          <span class="board-role">President</span>
+        </div>
+        <div class="board-card reveal-up" data-delay="120">
+          <div class="board-avatar">DN</div>
+          <h3 class="board-name">Don Newton</h3>
+          <span class="board-role">Secretary Extraordinaire</span>
+        </div>
+        <div class="board-card reveal-up" data-delay="180">
+          <div class="board-avatar">CE</div>
+          <h3 class="board-name">Cherie Eyer</h3>
+          <span class="board-role">Treasurer</span>
+        </div>
+        <div class="board-card reveal-up" data-delay="240">
+          <div class="board-avatar">HH</div>
+          <h3 class="board-name">Hannah Hodson</h3>
+          <span class="board-role">Social Media Coordinator</span>
+        </div>
+        <div class="board-card reveal-up" data-delay="300">
+          <div class="board-avatar">NJ</div>
+          <h3 class="board-name">Nick Johnson</h3>
+          <span class="board-role">Dance Coordinator</span>
+        </div>
+        <div class="board-card reveal-up" data-delay="360">
+          <div class="board-avatar">PM</div>
+          <h3 class="board-name">Pam Mitchel</h3>
+          <span class="board-role">Hospitality Coordinator</span>
+        </div>
+        <div class="board-card reveal-up" data-delay="420">
+          <div class="board-avatar">AG</div>
+          <h3 class="board-name">Alé Gutierrez</h3>
+          <span class="board-role">Volunteer Coordinator</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FAQ -->
+  <section id="faq" class="section faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">FAQ</span>
+        <h2 class="section-title">Questions and <em>Answers</em></h2>
+      </div>
+      <div class="faq-list">
+
+        <details class="faq-item reveal-up" data-delay="0">
+          <summary class="faq-question">What is Swing Music &amp; Dance?</summary>
+          <div class="faq-answer">
+            <p>Swing music is a style of jazz born in the United States during the late 1920s and early 1930s, defined by its infectious off-beat "swing" rhythm. By the mid-1930s it had swept the nation. Big Band leaders like Benny Goodman, Count Basie, and Duke Ellington ruled the airwaves from 1935 to 1946 in what we now call the <strong>Swing Era</strong>.</p>
+            <p>And where there's great music, there's great dancing. Swing dance is an umbrella term for the vibrant vernacular jazz dances that exploded during this era: Lindy Hop, East Coast Swing (Jitterbug), Balboa, Charleston, Collegiate Shag, and more. Each one is a living tradition, still danced and loved today.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal-up" data-delay="50">
+          <summary class="faq-question">Are there rules or guidelines I should know?</summary>
+          <div class="faq-answer">
+            <p>We keep it simple. Here are just a few things to keep the floor fun and safe for everyone:</p>
+            <ul class="faq-rules">
+              <li>No spiked heels or shoes that may mark or damage the floor.</li>
+              <li>No food or beverages on the dance floor, please.</li>
+              <li>All minors must be accompanied by an adult at all times.</li>
+              <li>Aerials (lifts and flips) should only be attempted during jam circles and always with your partner's explicit verbal agreement first.</li>
+              <li>All attendees must sign our waiver upon arrival.</li>
+              <li>We reserve the right to ask anyone to leave for any reason.</li>
+              <li>We have a <strong>zero-tolerance policy for harassment</strong>. We're a dance community, not a dating club. Respect goes a long way.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="faq-item reveal-up" data-delay="100">
+          <summary class="faq-question">What should I wear?</summary>
+          <div class="faq-answer">
+            <p>Swing dancing is a casual, joyful activity. Wear whatever makes you feel comfortable and ready to move. Some dancers show up in full 1940s/50s vintage looks, others dress up in their finest, and plenty show up in jeans and a t-shirt. It's entirely up to you.</p>
+            <p>A few practical tips: swing is a real workout, so choose breathable, stretchy clothing. Consider bringing a change of clothes for later in the evening. Go for comfortable, closed-toe shoes (many swing dancers swear by Keds and Fuegos). Open-toed shoes are not recommended, and spiked heels are not permitted on the floor.</p>
+            <p>Keep an eye out for our theme nights! Follow us on <a href="https://www.facebook.com/acswingrevival" target="_blank" rel="noopener noreferrer" class="faq-link">Facebook</a> or join our mailing list so you never miss one. Most importantly, dress how you feel.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal-up" data-delay="150">
+          <summary class="faq-question">Why become a member?</summary>
+          <div class="faq-answer">
+            <p>Membership is what keeps ACSR alive and kicking. At just <strong>$50/year</strong>, it's one of the best deals in town. And you get in free the night you sign up!</p>
+            <ul class="faq-rules">
+              <li>Discounted admission to all ACSR events and dances.</li>
+              <li>The ability to run for the board, volunteer, and vote in elections.</li>
+              <li>A direct stake in keeping our community thriving.</li>
+            </ul>
+            <p>And here's why it matters: to maintain our non-profit 501(c)(7) status, we need a solid membership base. Your membership is what allows us to book live bands, bring in great instructors, offer refreshments, and keep the lights on. Every member makes a difference.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal-up" data-delay="200">
+          <summary class="faq-question">Do I need a partner?</summary>
+          <div class="faq-answer">
+            <p>Not at all! At dances both here in San Antonio and around the world, it's tradition to rotate partners from song to song. It helps everyone improve faster, and it means you'll get to connect with dancers of all skill levels.</p>
+            <p>Come solo, and you'll leave with new friends and new moves.</p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal-up" data-delay="250">
+          <summary class="faq-question">How do I join the mailing or text messaging list?</summary>
+          <div class="faq-answer">
+            <p>Joining our mailing or text list is the most direct way to receive updates on our event schedule. Our reminders are sent out on a weekly basis. <a href="mailto:acswingrevival@gmail.com?subject=I want to get reminders | ACSR Website" class="faq-link">Email us to be added to the list!</a></p>
+          </div>
+        </details>
+
+        <details class="faq-item reveal-up" data-delay="300">
+          <summary class="faq-question">I want to get in contact with ACSR</summary>
+          <div class="faq-answer">
+            <p>Do you have a question not listed here or have a business inquiry? <a href="mailto:acswingrevival@gmail.com?subject=I have a question | ACSR Website" class="faq-link">Contact us here!</a></p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer — Vinyl Record -->
+  <footer class="footer">
+    <div class="footer-record">
+      <div class="footer-vinyl">
+        <div class="footer-vinyl-grooves"></div>
+        <div class="footer-vinyl-label">
+          <span class="footer-logo">ACSR</span>
+          <span class="footer-year">Est. 2016</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="#aboutus">About</a>
+        <a href="#events">Events</a>
+        <a href="#steps">Classes</a>
+        <a href="#scene">Gallery</a>
+        <a href="#board">Board</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/alamocityswingrevival" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-link">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/acswingrevival" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-link">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="mailto:acswingrevival@gmail.com" aria-label="Email" class="social-link">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+      </div>
+      <p class="footer-copy">Alamo City Swing Revival &copy; 2016-2026.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

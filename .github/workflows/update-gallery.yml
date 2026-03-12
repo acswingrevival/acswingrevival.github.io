@@ -1,0 +1,46 @@
+name: Update Gallery Manifest
+
+# Runs automatically whenever images are added, removed, or renamed
+on:
+  push:
+    paths:
+      - 'images/**'
+
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate manifest.json from images folder
+        run: |
+          python3 - <<'EOF'
+          import os, json
+
+          image_dir = 'images'
+          extensions = {'.jpg', '.jpeg', '.png', '.gif', '.webp'}
+
+          images = sorted(
+            f for f in os.listdir(image_dir)
+            if os.path.splitext(f)[1].lower() in extensions
+          )
+
+          with open(os.path.join(image_dir, 'manifest.json'), 'w') as out:
+            json.dump(images, out, indent=2)
+            out.write('\n')
+
+          print(f"manifest.json updated with {len(images)} image(s):")
+          for f in images:
+            print(f"  {f}")
+          EOF
+
+      - name: Commit updated manifest
+        run: |
+          git config user.name  "Gallery Bot"
+          git config user.email "gallery-bot@users.noreply.github.com"
+          git add images/manifest.json
+          git diff --staged --quiet || git commit -m "chore: auto-update gallery manifest"
+          git push
