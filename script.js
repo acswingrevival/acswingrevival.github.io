@@ -141,6 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentGalleryIdx = 0;
   let galleryImages = [];
 
+  function scheduleNonCritical(task) {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(task, { timeout: 1500 });
+      return;
+    }
+    setTimeout(task, 200);
+  }
+
   function initLightbox() {
     const items = document.querySelectorAll('.gallery-item');
     galleryImages = Array.from(items).map(item => {
@@ -197,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const delay = (i % 6) * 50;
         return `
           <div class="gallery-item reveal-up" data-delay="${delay}">
-            <img src="images/${filename}" alt="Dance photo ${i + 1}" loading="lazy">
+              <img src="images/${filename}" alt="Alamo City Swing Revival social dance photo ${i + 1}" loading="lazy" decoding="async" width="1200" height="800">
             <div class="gallery-overlay"><span></span></div>
           </div>`;
       }).join('');
@@ -209,34 +217,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  loadGallery();
+  scheduleNonCritical(loadGallery);
 
   // ---- Jukebox / Track Selection ----
   const tracks = document.querySelectorAll('.track');
   const vinylRecord = document.getElementById('vinyl-record');
   const vinylArm = document.getElementById('vinyl-arm');
 
-  // Start playing on load
-  setTimeout(() => {
-    vinylRecord.classList.add('spinning');
-    vinylArm.classList.add('active');
-  }, 2000);
+  if (vinylRecord && vinylArm) {
+    // Start playing on load
+    setTimeout(() => {
+      vinylRecord.classList.add('spinning');
+      vinylArm.classList.add('active');
+    }, 2000);
+  }
 
-  tracks.forEach(track => {
-    track.addEventListener('click', () => {
-      tracks.forEach(t => t.classList.remove('active'));
-      track.classList.add('active');
+  if (tracks.length > 0) {
+    tracks.forEach(track => {
+      track.addEventListener('click', () => {
+        tracks.forEach(t => t.classList.remove('active'));
+        track.classList.add('active');
 
-      // Vinyl animation
-      vinylRecord.classList.remove('spinning');
-      vinylArm.classList.remove('active');
+        if (vinylRecord && vinylArm) {
+          // Vinyl animation
+          vinylRecord.classList.remove('spinning');
+          vinylArm.classList.remove('active');
 
-      setTimeout(() => {
-        vinylArm.classList.add('active');
-        setTimeout(() => vinylRecord.classList.add('spinning'), 300);
-      }, 400);
+          setTimeout(() => {
+            vinylArm.classList.add('active');
+            setTimeout(() => vinylRecord.classList.add('spinning'), 300);
+          }, 400);
+        }
+      });
     });
-  });
+  }
 
   // ---- Smooth anchor scroll ----
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -245,6 +259,47 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ---- Mailto fallback (Gmail + clipboard) ----
+  document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+    link.addEventListener('click', async (e) => {
+      // Respect modified clicks (new tab/window intent).
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
+      const mailtoHref = link.getAttribute('href') || '';
+      if (!mailtoHref) return;
+
+      e.preventDefault();
+
+      const rawTarget = mailtoHref.replace(/^mailto:/i, '');
+      const [addressPart, queryPart = ''] = rawTarget.split('?');
+      const email = decodeURIComponent(addressPart || '').trim();
+      const params = new URLSearchParams(queryPart);
+      const subject = params.get('subject') || '';
+
+      if (!email) {
+        window.location.href = mailtoHref;
+        return;
+      }
+
+      const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}${subject ? `&su=${encodeURIComponent(subject)}` : ''}`;
+      const popup = window.open(gmailComposeUrl, '_blank', 'noopener,noreferrer');
+
+      if (!popup) {
+        // If popup is blocked, fall back to the user's local mail client.
+        window.location.href = mailtoHref;
+        return;
+      }
+
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(email);
+        } catch {
+          // Clipboard can fail silently on some browsers/permission states.
+        }
       }
     });
   });
@@ -306,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  loadEvents();
+  scheduleNonCritical(loadEvents);
 
   // ---- Load Lessons from Google Sheet ----
   const LESSONS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQeLZjUqbn64AyDm_fqQvMM1Vio6NbXPERnL3xBci5pY3vgUV0uq8uOEb342lkBLeOKVQDJIADWqCXA/pub?gid=1314345131&single=true&output=csv';
@@ -344,6 +399,67 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  loadLessons();
+  scheduleNonCritical(loadLessons);
+
+  // ---- Newsletter Form ----
+  const newsletterForm = document.getElementById('newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('nf-submit');
+      const errorEl   = document.getElementById('nf-error');
+      const successEl = document.getElementById('nf-success');
+
+      // Clear previous state
+      errorEl.textContent = '';
+      successEl.hidden = true;
+
+      // Client-side validation
+      const name  = newsletterForm.querySelector('#nf-name').value.trim();
+      const email = newsletterForm.querySelector('#nf-email').value.trim();
+
+      if (!name) {
+        errorEl.textContent = 'Please enter your name.';
+        newsletterForm.querySelector('#nf-name').focus();
+        return;
+      }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        newsletterForm.querySelector('#nf-email').focus();
+        return;
+      }
+
+      // Honeypot check (belt + suspenders)
+      if (newsletterForm.querySelector('input[name="_gotcha"]').value) return;
+
+      // Submit
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+
+      try {
+        const data = new FormData(newsletterForm);
+        const res  = await fetch(newsletterForm.action, {
+          method:  'POST',
+          body:    data,
+          headers: { 'Accept': 'application/json' },
+        });
+
+        if (res.ok) {
+          newsletterForm.reset();
+          successEl.hidden = false;
+          successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          const body = await res.json().catch(() => ({}));
+          errorEl.textContent = body.error || 'Something went wrong. Please try again.';
+        }
+      } catch {
+        errorEl.textContent = 'Network error. Please check your connection and try again.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+      }
+    });
+  }
 
 });
