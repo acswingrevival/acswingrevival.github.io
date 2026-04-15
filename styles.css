@@ -228,8 +228,9 @@ img {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   list-style: none;
+  flex-wrap: nowrap;
 }
 
 .nav-links a {
@@ -237,6 +238,7 @@ img {
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  white-space: nowrap;
   position: relative;
   transition: color 0.3s ease;
 }
@@ -1391,6 +1393,111 @@ img {
 }
 
 /* ============================================
+   Our Story
+   ============================================ */
+.ourstory {
+  background: var(--navy-light);
+}
+
+.ourstory-body {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.ourstory-lead {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--cream);
+  margin-bottom: 1.75rem;
+}
+
+.ourstory-body > p {
+  font-size: 0.975rem;
+  color: var(--cream-dim);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.ourstory-body strong {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.ourstory-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 2.5rem auto;
+  opacity: 0.5;
+}
+
+.ourstory-goals {
+  background: rgba(212, 168, 67, 0.04);
+  border: 1px solid rgba(212, 168, 67, 0.12);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+}
+
+.ourstory-goals-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.ourstory-goals p {
+  font-size: 0.975rem;
+  color: var(--cream-dim);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.ourstory-goals p:last-child {
+  margin-bottom: 0;
+}
+
+.ourstory-goals-highlight {
+  color: var(--cream) !important;
+}
+
+.ourstory-closing {
+  text-align: center;
+}
+
+.ourstory-closing > p {
+  font-size: 0.975rem;
+  color: var(--cream-dim);
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+.ourstory-exclaim {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold) !important;
+  letter-spacing: 0.05em;
+  margin: 1.5rem 0 1rem !important;
+}
+
+.ourstory-sign {
+  font-size: 1rem !important;
+  color: var(--cream) !important;
+  font-family: var(--font-display);
+  line-height: 1.6 !important;
+}
+
+.ourstory-sign em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+/* ============================================
    Footer
    ============================================ */
 .footer {
@@ -1450,8 +1557,9 @@ img {
 
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem 2rem;
   margin-bottom: 1.5rem;
 }
 
