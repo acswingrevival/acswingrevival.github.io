@@ -1,7 +1,5 @@
 # ACSR Website Update Guide (Beginner-Friendly)
 
-<img src="favicon.svg" alt="ACSR favicon" width="56">
-
 This guide is for volunteers who are **not technical**.
 
 It explains exactly how to update:
