@@ -401,4 +401,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
   scheduleNonCritical(loadLessons);
 
+  // ---- Newsletter Form ----
+  const newsletterForm = document.getElementById('newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('nf-submit');
+      const errorEl   = document.getElementById('nf-error');
+      const successEl = document.getElementById('nf-success');
+
+      // Clear previous state
+      errorEl.textContent = '';
+      successEl.hidden = true;
+
+      // Client-side validation
+      const name  = newsletterForm.querySelector('#nf-name').value.trim();
+      const email = newsletterForm.querySelector('#nf-email').value.trim();
+
+      if (!name) {
+        errorEl.textContent = 'Please enter your name.';
+        newsletterForm.querySelector('#nf-name').focus();
+        return;
+      }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        newsletterForm.querySelector('#nf-email').focus();
+        return;
+      }
+
+      // Honeypot check (belt + suspenders)
+      if (newsletterForm.querySelector('input[name="_gotcha"]').value) return;
+
+      // Submit
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+
+      try {
+        const data = new FormData(newsletterForm);
+        const res  = await fetch(newsletterForm.action, {
+          method:  'POST',
+          body:    data,
+          headers: { 'Accept': 'application/json' },
+        });
+
+        if (res.ok) {
+          newsletterForm.reset();
+          successEl.hidden = false;
+          successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          const body = await res.json().catch(() => ({}));
+          errorEl.textContent = body.error || 'Something went wrong. Please try again.';
+        }
+      } catch {
+        errorEl.textContent = 'Network error. Please check your connection and try again.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+      }
+    });
+  }
+
 });

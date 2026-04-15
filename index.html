@@ -162,6 +162,7 @@
       <li><a href="#board">The Board</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#ourstory">Our Story</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
       <li><a href="#events" class="nav-cta">Join the Floor</a></li>
     </ul>
   </nav>
@@ -384,14 +385,14 @@
         <details class="faq-item reveal-up" data-delay="250">
           <summary class="faq-question">How do I join the mailing or text messaging list?</summary>
           <div class="faq-answer">
-            <p>Joining our mailing or text list is the most direct way to receive updates on our event schedule. Our reminders are sent out on a weekly basis. <a href="mailto:acswingrevival@gmail.com?subject=I want to get reminders | ACSR Website" class="faq-link">Email us to be added to the list!</a></p>
+            <p>Joining our mailing or text list is the most direct way to receive updates on our event schedule. Our reminders are sent out on a weekly basis. <a href="#newsletter" class="faq-link">Email us to be added to the list!</a></p>
           </div>
         </details>
 
         <details class="faq-item reveal-up" data-delay="300">
           <summary class="faq-question">I want to get in contact with ACSR</summary>
           <div class="faq-answer">
-            <p>Do you have a question not listed here or have a business inquiry? <a href="mailto:acswingrevival@gmail.com?subject=I have a question | ACSR Website" class="faq-link">Contact us here!</a> Alternatively, you can contact us at acswingrevival@gmail.com</p>
+            <p>Do you have a question not listed here or have a business inquiry? <a href="#newsletter" class="faq-link">Contact us here!</a> Alternatively, you can contact us at acswingrevival@gmail.com</p>
           </div>
         </details>
 
@@ -434,6 +435,113 @@
     </div>
   </section>
 
+  <!-- Newsletter / Contact -->
+  <section id="newsletter" class="section newsletter">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Stay Connected</span>
+        <h2 class="section-title">Sign up for our <em>Newsletter!</em></h2>
+      </div>
+      <div class="newsletter-grid">
+        <div class="newsletter-form-wrap reveal-left">
+          <p class="newsletter-lead">Want more information about our events or other swing events?</p>
+
+          <form
+            id="newsletter-form"
+            class="newsletter-form"
+            action="https://formspree.io/f/xvzdzwrq"
+            method="POST"
+            novalidate
+          >
+            <!-- Honeypot — bots fill this, humans don't -->
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+
+            <div class="nf-group">
+              <label class="nf-label" for="nf-name">Name <span class="nf-required">*</span></label>
+              <input
+                class="nf-input"
+                id="nf-name"
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                required
+                maxlength="100"
+                autocomplete="name"
+              >
+            </div>
+
+            <div class="nf-group">
+              <label class="nf-label" for="nf-email">Email <span class="nf-required">*</span></label>
+              <input
+                class="nf-input"
+                id="nf-email"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                maxlength="254"
+                autocomplete="email"
+              >
+            </div>
+
+            <div class="nf-group">
+              <label class="nf-label" for="nf-comment">Comment</label>
+              <textarea
+                class="nf-input nf-textarea"
+                id="nf-comment"
+                name="comment"
+                placeholder="Leave a comment"
+                rows="3"
+                maxlength="1000"
+              ></textarea>
+            </div>
+
+            <div class="nf-group">
+              <label class="nf-label" for="nf-phone">Phone</label>
+              <input
+                class="nf-input"
+                id="nf-phone"
+                type="tel"
+                name="phone"
+                placeholder="Enter your phone number to receive event reminders"
+                maxlength="20"
+                pattern="[\d\s\+\-\(\)]+"
+                autocomplete="tel"
+              >
+            </div>
+
+            <fieldset class="nf-fieldset">
+              <legend class="nf-label">How can we help?</legend>
+              <div class="nf-checks">
+                <label class="nf-check"><input type="checkbox" name="interests" value="Newsletter"> Sign me up for the newsletter</label>
+                <label class="nf-check"><input type="checkbox" name="interests" value="Volunteer"> I want to volunteer</label>
+                <label class="nf-check"><input type="checkbox" name="interests" value="Member"> I want to become a member</label>
+                <label class="nf-check"><input type="checkbox" name="interests" value="Feedback"> I have feedback</label>
+                <label class="nf-check"><input type="checkbox" name="interests" value="Text Reminders"> I want to receive texts about events</label>
+                <label class="nf-check"><input type="checkbox" name="interests" value="Other"> Something else</label>
+              </div>
+            </fieldset>
+
+            <p class="nf-error" id="nf-error" role="alert" aria-live="assertive"></p>
+
+            <button class="nf-submit" type="submit" id="nf-submit">
+              <span class="nf-submit-label">Submit</span>
+              <span class="nf-submit-spinner" aria-hidden="true"></span>
+            </button>
+
+            <div class="nf-success" id="nf-success" role="status" aria-live="polite" hidden>
+              Thanks! We'll be in touch soon.
+            </div>
+          </form>
+        </div>
+
+        <div class="newsletter-img reveal-right">
+          <img src="frankie.jpg" alt="A portrait of Frankie Manning" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer — Vinyl Record -->
   <footer class="footer">
     <div class="footer-record">
@@ -454,6 +562,7 @@
         <a href="#board">Board</a>
         <a href="#faq">FAQ</a>
         <a href="#ourstory">Our Story</a>
+        <a href="#newsletter">Newsletter</a>
       </div>
       <div class="footer-social">
         <a href="https://www.instagram.com/alamocityswingrevival" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-link">

@@ -1679,7 +1679,250 @@ img {
   }
 }
 
+/* ============================================
+   Newsletter / Contact Form
+   ============================================ */
+.newsletter {
+  background: var(--navy-light);
+}
+
+.newsletter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.newsletter-lead {
+  color: var(--cream-dim);
+  font-style: italic;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.newsletter-img {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  position: sticky;
+  top: 7rem;
+}
+
+.newsletter-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Form groups */
+.nf-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.nf-label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cream-dim);
+}
+
+.nf-required {
+  color: var(--gold);
+  margin-left: 2px;
+}
+
+.nf-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(212, 168, 67, 0.25);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.6rem 0;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s ease;
+  caret-color: var(--gold);
+}
+
+.nf-input::placeholder {
+  color: rgba(197, 193, 181, 0.45);
+}
+
+.nf-input:focus {
+  border-bottom-color: var(--gold);
+}
+
+.nf-input.nf-invalid {
+  border-bottom-color: #c0392b;
+}
+
+.nf-textarea {
+  resize: vertical;
+  min-height: 72px;
+  border: 1px solid rgba(212, 168, 67, 0.25);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+}
+
+.nf-textarea:focus {
+  border-color: var(--gold);
+}
+
+/* Fieldset / checkboxes */
+.nf-fieldset {
+  border: none;
+  margin-bottom: 1.75rem;
+}
+
+.nf-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+.nf-check {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--cream);
+}
+
+.nf-check input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 1px solid rgba(212, 168, 67, 0.4);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.nf-check input[type="checkbox"]:checked {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.nf-check input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid var(--navy);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.nf-check input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Error message */
+.nf-error {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  min-height: 1.2em;
+  margin-bottom: 0.5rem;
+}
+
+/* Submit button */
+.nf-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.nf-submit:hover:not(:disabled) {
+  transform: scale(1.04);
+  box-shadow: 0 6px 24px rgba(212, 168, 67, 0.35);
+}
+
+.nf-submit:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.nf-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Spinner inside button */
+.nf-submit-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(10, 14, 26, 0.3);
+  border-top-color: var(--navy);
+  border-radius: 50%;
+  animation: nfSpin 0.7s linear infinite;
+}
+
+.nf-submit.loading .nf-submit-spinner {
+  display: block;
+}
+
+@keyframes nfSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success message */
+.nf-success {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(212, 168, 67, 0.3);
+  border-radius: 8px;
+  background: rgba(212, 168, 67, 0.07);
+  color: var(--gold-light);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* ============================================
+   Newsletter responsive
+   ============================================ */
 @media (max-width: 768px) {
+  .newsletter-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .newsletter-img {
+    position: static;
+    aspect-ratio: 16/9;
+    order: -1;
+  }
+
   .hero-title {
     font-size: clamp(2.5rem, 10vw, 4.5rem);
   }
