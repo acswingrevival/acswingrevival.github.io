@@ -198,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>`;
       }).join('');
 
-      container.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
       initLightbox();
     } catch {
       container.innerHTML = '<p class="events-loading">Could not load gallery.</p>';
@@ -342,8 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       grid.innerHTML = events.map((e, i) => buildEventCard(e, i * 100)).join('');
 
-      // Re-run scroll observer on new cards
-      grid.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
     } catch {
       grid.innerHTML = '<p class="events-loading">Could not load events. Please try again later.</p>';
     }
@@ -381,7 +378,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       grid.innerHTML = lessons.map((l, i) => buildLessonCard(l, i, i * 100)).join('');
-      grid.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
     } catch {
       grid.innerHTML = '<p class="events-loading">Could not load classes. Please try again later.</p>';
     }
