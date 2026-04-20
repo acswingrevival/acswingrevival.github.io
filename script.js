@@ -80,20 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ---- Scroll reveal (Intersection Observer) ----
-  const revealEls = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
-
-  let revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const delay = parseInt(entry.target.dataset.delay || 0);
-        setTimeout(() => entry.target.classList.add('revealed'), delay);
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-  revealEls.forEach(el => revealObserver.observe(el));
+  // ---- Scroll reveal (disabled) ----
+  // document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => el.classList.add('revealed'));
 
   // ---- Colorize images on scroll ----
   const colorizeEls = document.querySelectorAll('[data-colorize]');

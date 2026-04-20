@@ -503,30 +503,15 @@ img {
 /* ============================================
    Reveal Animations
    ============================================ */
+/* Reveal animations disabled */
 .reveal-up,
 .reveal-left,
-.reveal-right {
-  opacity: 0;
-  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-}
-
-.reveal-up {
-  transform: translateY(60px);
-}
-
-.reveal-left {
-  transform: translateX(-60px);
-}
-
-.reveal-right {
-  transform: translateX(60px);
-}
-
+.reveal-right,
 .reveal-up.revealed,
 .reveal-left.revealed,
 .reveal-right.revealed {
   opacity: 1;
-  transform: translate(0, 0);
+  transform: none;
 }
 
 /* ============================================
