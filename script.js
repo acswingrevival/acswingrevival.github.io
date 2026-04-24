@@ -296,17 +296,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function parseCSV(text) {
     const [headerLine, ...rows] = text.trim().split('\n');
-    const headers = headerLine.split(',').map(h => h.trim());
+    const headers = splitCSVRow(headerLine);
     return rows.map(row => {
-      const values = row.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+      const values = splitCSVRow(row);
       return Object.fromEntries(headers.map((h, i) => [h, values[i] ?? '']));
     });
+  }
+
+  function splitCSVRow(row) {
+    const values = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < row.length; i++) {
+      const ch = row[i];
+      if (inQuotes) {
+        if (ch === '"' && row[i + 1] === '"') { current += '"'; i++; }
+        else if (ch === '"') { inQuotes = false; }
+        else { current += ch; }
+      } else {
+        if (ch === '"') { inQuotes = true; }
+        else if (ch === ',') { values.push(current.trim()); current = ''; }
+        else { current += ch; }
+      }
+    }
+    values.push(current.trim());
+    return values;
   }
 
   function buildEventCard(event, delay) {
     const date = new Date(event.Date);
     const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
     const day = date.getDate();
+    const link = (event.Eventbrite || '').trim();
+    const ticketBtn = link
+      ? `<a href="${link}" class="event-ticket" target="_blank" rel="noopener noreferrer">Tickets</a>`
+      : '';
     return `
       <div class="event-card sway-card reveal-up" data-delay="${delay}">
         <div class="event-date">
@@ -321,6 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>${event.Venue}</span>
           </div>
         </div>
+        ${ticketBtn}
       </div>`;
   }
 
