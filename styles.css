@@ -317,16 +317,46 @@ img {
    ============================================ */
 .hero {
   position: relative;
+  /* svh = the viewport with the mobile toolbar *shown*, so the hero keeps a
+     fixed height instead of growing as the toolbar collapses on scroll.
+     The vh line is the fallback for browsers without svh. */
   height: 100vh;
-  min-height: 600px;
-  display: flex;
+  height: 100svh;
+  min-height: 660px;
+  /* Two rows: the headline block centred in whatever space is left, and the
+     press strip sitting at the bottom. Keeping the strip in flow (rather
+     than absolutely pinned) means it can never overlap the CTA on a short
+     viewport, and nothing in the hero has to react to viewport height. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
+  /* clears the fixed navbar and drops the headline away from the top edge —
+     the headline centres in what's left, so this reads as roughly half its
+     value of extra breathing room above the title */
+  padding-top: 6rem;
   overflow: hidden;
   background:
     radial-gradient(ellipse at 30% 50%, rgba(139, 26, 26, 0.15), transparent 60%),
     radial-gradient(ellipse at 70% 30%, rgba(212, 168, 67, 0.1), transparent 50%),
     var(--navy);
+}
+
+/* Wide screens render the title at its full size, so the hero needs more
+   room before the headline, press strip and padding stop fitting. On a
+   short laptop window this makes the hero a little taller than the
+   viewport — the strip scrolls into view rather than crowding the CTA. */
+@media (min-width: 900px) {
+  .hero {
+    min-height: 740px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero {
+    min-height: 800px;
+  }
 }
 
 .hero-overlay {
@@ -386,7 +416,10 @@ img {
   color: var(--cream-dim);
   max-width: 500px;
   margin: 0 auto 2.5rem;
-  min-height: 1.6em;
+  /* Reserve the tallest wrap (3 lines at line-height 1.6) so the typewriter
+     can't push the CTA down as it types. Re-check if the phrases in
+     script.js get longer. */
+  min-height: 4.8em;
   font-weight: 300;
   letter-spacing: 0.03em;
 }
@@ -455,6 +488,86 @@ img {
 @keyframes scrollPulse {
   0%, 100% { transform: scaleY(1); opacity: 1; }
   50% { transform: scaleY(0.5); opacity: 0.3; }
+}
+
+/* As Seen On — press strip at the bottom of the hero.
+   Everything here is sized off viewport *width*, never height: a height
+   media query re-evaluates when the mobile toolbar collapses mid-scroll,
+   which made the logos jump a size on the first scroll gesture. */
+.hero-press {
+  width: 100%;
+  z-index: 2;
+  padding: 0 1.5rem;
+  /* clears the scroll indicator sitting at the bottom of the hero */
+  margin-bottom: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.8rem, 2.5vw, 1.1rem);
+  opacity: 0;
+  animation: heroReveal 0.6s var(--ease-out-expo) 1.8s forwards;
+}
+
+.hero-press-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em; /* offset the trailing letter-space so it reads centred */
+  color: var(--gold);
+  opacity: 0.8;
+}
+
+.hero-press-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 4.25rem);
+  list-style: none;
+}
+
+/* Override the global img rule so logos keep their own proportions.
+   The marks are pre-rendered as cream duotones so they read as part of
+   the palette rather than three competing brand colours. */
+.hero-press-item img {
+  width: auto;
+  height: auto;
+  max-height: 52px;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+/* Per-logo optical sizing and weight — each mark has a different aspect
+   ratio, and the News 4 badge is a solid block where the others are open
+   wordmarks, so it needs to sit back a little further. The clamps scale
+   the marks down on narrow screens and settle at full size from ~550px up. */
+.hero-press-item--tall img {
+  max-height: clamp(42px, 12vw, 66px);
+}
+
+.hero-press-item--square img {
+  max-height: clamp(40px, 11vw, 60px);
+  opacity: 0.9;
+}
+
+.hero-press-item--wide img {
+  max-height: clamp(30px, 8.2vw, 46px);
+}
+
+/* Landscape phones and other very short viewports: no room for the strip.
+   470px sits well below the heights a toolbar collapse moves between
+   (~520–780px on phones in portrait), so this can't flip mid-scroll. */
+@media (max-height: 470px) {
+  .hero-press {
+    display: none;
+  }
+
+  /* with the strip gone the headline fits a landscape phone on its own */
+  .hero {
+    min-height: 0;
+    padding-top: 3rem;
+  }
 }
 
 /* ============================================
@@ -1626,7 +1739,10 @@ img {
     right: -100%;
     width: 75vw;
     max-width: 320px;
+    /* dvh so the off-canvas panel fills whatever is actually visible as the
+       mobile toolbar shows and hides, rather than overflowing past it. */
     height: 100vh;
+    height: 100dvh;
     flex-direction: column;
     background: var(--navy);
     padding: 5rem 2rem 2rem;
